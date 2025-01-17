@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiflix</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(to bottom, #111, #141414);
+            background-size: 100% 300px;
+            background-position: 0% 100%;
+            color: #fff;
+        }
+
+        header {
+            background-color: #141414;
+            padding: 1em;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 36px;
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px #ff3737;
+        }
+
+        .logo span {
+            color: #ff3737;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 20px;
+            padding: 20px;
+        }
+
+        .movie {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .movie img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-watch-now {
+            background-color: #e50914;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .btn-watch-now:hover {
+            background-color: #ff3737;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+            overflow: auto; /* Enable scroll if needed */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .modal-content video {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            color: #fff;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #ff3737;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #141414;
+            color: #fff;
+            padding: 1em;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Holi<span style="color: #ff3737;">Flix</span></h1>
+        </div>
+    </header>
+
+    <section class="featured" style="margin-top: 20px;">
+        <h2 style="font-size: 24px; margin-bottom: 10px;">Featured Movies</h2>
+        <div class="movie-grid">
+            <div class="movie">
+                <img src="Gladiator II.jpg" alt="Gladiator 2">
+                <h3 style="font-size: 18px;">Gladiator 2</h3>
+                <p style="font-size: 14px;">Genre: Action, Thriller</p>
+                <button class="btn-watch-now" onclick="openModal('Gladiator 2.mp4')">Watch Now</button>
+            </div>
+            <div class="movie">
+                <img src="Moana 2.jpg" alt="Moana 2">
+                <h3 style="font-size: 18px;">Moana 2</h3>
+                <p style="font-size: 14px;">Genre: Comedy, Animation</p>
+                <button class="btn-watch-now" onclick="openModal('Moana 2.mp4')">Watch Now</button>
+            </div>
+            <div class="movie">
+                <img src="venom the last dance.png" alt="Venom The Last Dance">
+                <h3 style="font-size: 18px;">Venom The Last Dance</h3>
+                <p style="font-size: 14px;">Genre: Sci-Fi, Adventure</p>
+                <button class="btn-watch-now" onclick="openModal('Venom The last Dance.mp4')">Watch Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Video Playback -->
+    <div id="videoModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <video id="videoPlayer" controls>
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Holiflix</p>
+        <p>Founded and created by <a href="#" style="text-decoration: none; color: #fff;">Nigel Muvengi</a></p>
+        <p>Support Holiflix: <a href="https://paypal.me/NigelTatenda24?country.x=ZA&locale.x=en_US" style="text-decoration: none; color: #fff;">Donate via PayPal</a></p>
+    </footer>
+
+    <script>
+        // Open the modal and load the video
+        function openModal(videoSrc) {
+            var modal = document.getElementById("videoModal");
+            var videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = videoSrc; // Set the video source based on button clicked
+            modal.style.display = "block";
+        }
+
+        // Close the modal
+        function closeModal() {
+            var modal = document.getElementById("videoModal");
+            var videoPlayer = document.getElementById("videoPlayer");
+            modal.style.display = "none";
+            videoPlayer.pause(); // Pause video when modal is closed
+            videoPlayer.currentTime = 0; // Reset video to the beginning
+        }
+    </script>
+</body>
+</html>
